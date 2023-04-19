@@ -43,7 +43,7 @@
             <div
               v-for="hour in getDayInfo"
               :key="hour.time"
-              class="keen-slider__slide min-w-[66px] flex flex-col items-center px-[13px]"
+              class="keen-slider__slide min-w-[66px] flex flex-col items-center px-[13px] cursor-pointer"
             >
               <div class="text-[#6D7784] text-center">{{ hour.time }}</div>
               <img :src="hour.img" alt="" class="w-[26px] h-[26px] mt-[13px] mb-[10px]" />
@@ -62,7 +62,7 @@
         <IconCalendar />
         <p class="pl-[8px]">Погода на 5 дней</p>
       </div>
-      <div class="md:flex-row md:justify-around md:flex md:pl-[30px]">
+      <div class="md:flex-row md:justify-around md:flex md:pl-[30px] cursor-pointer">
         <div
           v-for="day in getFiveDayInfo"
           :key="day.min"
@@ -178,7 +178,7 @@ onMounted(async () => {
   weather.fiveDay = await getWeather()
   await nextTick()
   watchEffect(() => {
-    if (slider.value) {
+    if (slider.value && getFiveDayInfo.value.length > 0) {
       slider.value.update()
     }
   })
