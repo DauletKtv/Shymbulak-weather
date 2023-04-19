@@ -85,7 +85,7 @@
 </template>
 
 <script setup>
-import { reactive, onMounted, computed, ref } from 'vue'
+import { reactive, onMounted, computed, ref, watchEffect, nextTick } from 'vue'
 import IconCLock from './icons/iconCLock.vue'
 import IconCalendar from './icons/iconCalendar.vue'
 import getTodayWeather from '../service/getTodayWeather'
@@ -175,8 +175,13 @@ const getDayInfo = computed(() => {
 
 onMounted(async () => {
   weather.today = await getTodayWeather()
-  // console.log(mainToImg)
   weather.fiveDay = await getWeather()
+  await nextTick()
+  watchEffect(() => {
+    if (slider.value) {
+      slider.value.update()
+    }
+  })
 })
 </script>
 
